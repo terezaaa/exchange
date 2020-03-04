@@ -1,7 +1,6 @@
 package stock
 
-sealed trait StockKind {
-}
+sealed trait StockKind
 
 case object A extends StockKind
 

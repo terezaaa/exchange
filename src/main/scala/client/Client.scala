@@ -12,11 +12,11 @@ case class Client(
 
   def buyStocks(stockKind: StockKind, amount: Int, price: Int): Client = this.copy(
     balance = balance - amount * price,
-    stocks = stocks + (stockKind -> stocks(stockKind).+(amount))
+    stocks = stocks + (stockKind -> (stocks(stockKind) + amount))
   )
 
   def sellStocks(stockKind: StockKind, amount: Int, price: Int): Client = this.copy(
     balance = balance + amount * price,
-    stocks = stocks + (stockKind -> stocks(stockKind).-(amount))
+    stocks = stocks + (stockKind -> (stocks(stockKind) - amount))
   )
 }

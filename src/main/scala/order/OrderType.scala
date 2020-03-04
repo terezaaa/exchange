@@ -1,7 +1,6 @@
 package order
 
-sealed trait OrderType {
-}
+sealed trait OrderType
 
 case object BUY extends OrderType
 
