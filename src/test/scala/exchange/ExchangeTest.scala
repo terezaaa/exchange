@@ -75,14 +75,11 @@ class ExchangeTest extends FunSuite {
            ): Unit = {
     val dataMapper = new DataMapper
     val clients = dataMapper.clients(clientsActual)
-    val ordersr = dataMapper.orders(clients, orders)
 
-    val clientsResult = ordersr.foldLeft(new Exchange(clients)) {
+    val clientsResult = dataMapper.orders(clients, orders).foldLeft(new Exchange(clients)) {
       (exchange, order) => exchange.order(order)
     }.clients
 
-    val expected = dataMapper.clients(clientsExpected)
-
-    assertResult(expected)(clientsResult)
+    assertResult(dataMapper.clients(clientsExpected))(clientsResult)
   }
 }
