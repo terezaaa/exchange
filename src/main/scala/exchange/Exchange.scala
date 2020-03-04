@@ -12,13 +12,13 @@ class Exchange(
 
   private val rules = List(
     (order: Order) => order.orderType != BUY || (order.amount * order.price) <= clients(order.client).balance,
-    (order: Order) => order.orderType != SELL || clients(order.client).stocks.getOrElse(order.stockKind, 0) >= order.amount
+    (order: Order) => order.orderType != SELL || clients(order.client).stocks.getOrElse(order.stockKind, 0) >= order.amount,
+    (order: Order) => order.amount > 0
   )
 
   def order(order: Order): Exchange = {
     order match {
       case order if !rules.forall(_ (order)) => new Exchange(clients, buyOrders, sellOrders)
-      case Order(_, _, _, 0, _, _) => new Exchange(clients, buyOrders, sellOrders)
       case _ =>
         nextMatch(order) match {
           case Some(m) =>
